@@ -1,0 +1,54 @@
+<!-- Create a container for the chart -->
+<div id="chart_div"></div>
+
+<!-- Load the Google Charts API library -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!-- Initialize the library and draw the chart -->
+<script type="text/javascript">
+  // Load the corechart package from Google Charts
+  google.charts.load('current', {'packages': ['corechart']});
+
+  // Call the drawChart function when the library is loaded
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    // Get the chart data from a variable and convert it to a DataTable object
+    var chartData = {{ chart_data|safe }};
+    var data = google.visualization.arrayToDataTable(chartData);
+
+    // Set the chart options, including the title, width, and height
+    var options = { title: '{{ chart_title }}', colors: ['#ffffff'], backgroundColor: '#000000', chartArea: { width: '80%', height: '70%', backgroundColor: { fill: '#ffffff', opacity: 50 } }, legend: { position: 'none' }, hAxis: { title: '{{ h_title }}', titleTextStyle: { color: '#ffffff' }, colors: ['#ffffff'], textStyle: { color: '#ffffff', fontName: 'Roboto', fontSize: 14 }, baselineColor: '#d8d8d8', gridlines: { color: '#d8d8d8' } }, vAxis: { title: '{{ v_title }}', titleTextStyle: { color: '#ffffff' }, textStyle: { color: '#ffffff', fontName: 'Roboto', fontSize: 14 }, baselineColor: '#d8d8d8', gridlines: { color: '#d8d8d8' } }, colors: ['#1DB954'], titleTextStyle: { color: '#ffffff' } };
+
+    // Create a new ColumnChart object and draw the chart in the container with id "chart_div"
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+
+<style type="text/css">
+
+    #chart_div {
+        width: 100%;
+        height: 400px;
+        margin-top: 100px;
+        border: 1px solid #1DB954;
+    }
+
+    .google-visualization-tooltip {
+        font-size: 14px !important;
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    .google-visualization-tooltip-item {
+        color: #000000 !important;
+    }
+
+    body {
+        background-image: url('https://www.digitalmusicnews.com/wp-content/uploads/2020/08/spotify-keeps-crashing.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
